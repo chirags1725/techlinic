@@ -14,10 +14,11 @@ import { useRouter } from "next/router";
 export default function Signup() {
   const [availabilitymodalopen, setAvailabilitymodalopen] = useState(false);
   const [sliderValue, setSliderValue] = useState(350);
-  const [loader, setLoader ] = useState(false)
-  const [error, setError] = useState(null)
-  const router = useRouter()
-
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState(null);
+  const router = useRouter();
+  const [startTime, setStartTime] = useState("09");
+  const [endTime, setEndTime] = useState("10");
 
   const submit = (data) => {
     //post using fetch
@@ -28,26 +29,24 @@ export default function Signup() {
       },
       body: JSON.stringify(data),
     })
-    .then(res=>res.json())
-    .then(data => {
-      if(data.error){
-        setError(data.error)
-        setTimeout(() => {
-          setError(null)
-        }, 4000);
-        setLoader(false)
-        }else{
-          console.log(data)
-          setLoader(false)
-          localStorage.setItem('user', JSON.stringify(data))
-          localStorage.setItem('user-role','doctor')
-          router.push('/')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+          setTimeout(() => {
+            setError(null);
+          }, 4000);
+          setLoader(false);
+        } else {
+          console.log(data);
+          setLoader(false);
+          localStorage.setItem("user", JSON.stringify(data));
+          localStorage.setItem("user-role", "doctor");
+          router.push("/");
           // window.location.href = '/'
-          }
-          }
-    
-    );
-      setAvailabilitymodalopen(false)
+        }
+      });
+    setAvailabilitymodalopen(false);
   };
 
   const days = ["M", "T", "W", "T", "F", "S", "S"];
@@ -72,7 +71,6 @@ export default function Signup() {
     });
   }, [selectedDays]);
 
-
   React.useEffect(() => {
     setFormData({
       ...formData,
@@ -80,12 +78,20 @@ export default function Signup() {
     });
   }, [sliderValue]);
 
+  React.useEffect(() => {
+    setFormData({
+      ...formData,
+      time: [startTime,endTime],
+    });
+  }, [startTime,endTime]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     availability: [],
-    fees:sliderValue,
+    fees: sliderValue,
+    time:[startTime,endTime]
   });
 
   const handleChange = (e) => {
@@ -102,14 +108,12 @@ export default function Signup() {
     // Handle form submission
   };
 
-
-  const registerdoctor = ()=>{
-    submit(formData)
-    setLoader(true)
-  }
+  const registerdoctor = () => {
+    submit(formData);
+    setLoader(true);
+  };
   return (
     <div className={styles.container}>
-
       {loader && <Loader></Loader>}
       <div className={styles.logo}>Techlinic</div>
 
@@ -138,7 +142,20 @@ export default function Signup() {
             Register as a doctor
           </div>
 
-          {error && <div style={{marginBottom:"40px",marginTop:"-20px",background:"red",color:'white',padding:"4px 10px", textTransform:"capitalize"}}>{error}</div>}
+          {error && (
+            <div
+              style={{
+                marginBottom: "40px",
+                marginTop: "-20px",
+                background: "red",
+                color: "white",
+                padding: "4px 10px",
+                textTransform: "capitalize",
+              }}
+            >
+              {error}
+            </div>
+          )}
 
           <div className={styles.inputGroup}>
             <input
@@ -247,7 +264,52 @@ export default function Signup() {
                 </div>
               </div>
 
-              <button onClick={registerdoctor} className={styles.submitButton} style={{marginTop:"20px"}}>Register</button>
+              <h2 style={{ marginTop: "20px", marginBottom: "10px" }}>
+                Select your time
+              </h2>
+              {/* input for time starttime and endtime and endtime should always be greater than starttime */}
+              <div
+                style={{
+                  display: "flex",
+                  background: "transparent",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <select
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                >
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <option value={i.toString().padStart(2, "0")}>{`${i
+                      .toString()
+                      .padStart(2, "0")}:00`}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                >
+                  {Array.from({ length: 24 - parseInt(startTime) }, (_, i) => (
+                    <option
+                      value={(parseInt(startTime) + i + 1)
+                        .toString()
+                        .padStart(2, "0")}
+                    >{`${(parseInt(startTime) + i + 1)
+                      .toString()
+                      .padStart(2, "0")}:00`}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={registerdoctor}
+                className={styles.submitButton}
+                style={{ marginTop: "20px" }}
+              >
+                Register
+              </button>
             </Modal>
           )}
         </form>

@@ -2,6 +2,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { FiMenu } from "react-icons/fi";
+import { FaHistory, FaHome } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
+import { FaUserDoctor } from "react-icons/fa6";
+import { PiNotebook, PiNotebookFill } from "react-icons/pi";
+
 
 const Sidebar = () => {
   const router = useRouter();
@@ -15,10 +20,11 @@ const Sidebar = () => {
   useEffect(()=>{
     if(localStorage.getItem('user-role') === 'user'){
 
-      setList({'Home':"user",'Appointment':"user/Appointment","Cs,okwkoe":"vla"})
+      setList({'Home':["user",<FaHome/>],'Appointment':["user/Appointment",<FaCalendar></FaCalendar>],"Cs,okwkoe":["vla",<FaHistory />]})
     }
     else{
-      setList({'Home':"user",'Appointment':"user/Appointment","doctor":"vla"})
+      setList({'Home':["doctor",<FaHome/>],'Appointment':["doctor/Appointment",<FaCalendar/>],"doctor":["vla",<FaUserDoctor />]})
+
 
     }
   },[])
@@ -32,10 +38,14 @@ const Sidebar = () => {
       <ul style={isOpen ? styles.ulOpen : styles.ulClosed}>
       {list && Object.entries(list).map(([key,value],index)=>{
           return(
-          <li key={index} style={{...styles.li ,...router.pathname === `/${value}` ? styles.active : {}}}>
-          <Link href={`/${value}`} style={{textDecoration:"none",fontWeight:"600",color:router.pathname !== `/${value}` ? "rgb(137,141,158)" : "rgba(69,100,246)",transition:'color 0s',fontSize:"1em",width:"100%"}}>
+          <li key={index} style={{...styles.li ,...router.pathname === `/${value[0]}` ? styles.active : {}}}>
+            {/* //dangerouslysetinnerhtml */}
+          <Link href={`/${value[0]}`} style={{display:"flex",alignItems:"center",textDecoration:"none",fontWeight:"600",color:(router.pathname === (`/${value[0]}`)) ? "rgba(69,100,246)":"rgb(137,141,158)",transition:'color 0s',fontSize:"1em",width:"100%"}}>
+            <div style={{fontSize:"1.2em"}}>{value[1]}</div>
+             
           
-          <div style={{padding:"10px 14px"}}>{key}</div></Link>
+          {<div style={{padding:"10px 14px",visibility:isOpen?"inherit":"hidden"}}>{key}</div>}
+          </Link>
         </li>
           )
         })
@@ -84,17 +94,24 @@ const styles = {
     display: 'flex',
     flexDirection:"column",
     listStyle: 'none',
-    gap:'8px'
+    gap:'12px'
   },
   ulClosed: {
-    display: 'none',
+    // display: 'none',
+    marginTop:'40px',
+    display: 'flex',
+    flexDirection:"column",
+    listStyle: 'none',
+    gap:'12px',
+    // width:"100%",
   },
-  li:{
+  li:(isOpen)=>({
     textDecoration:"none",
     position:"relative",
-    borderRadius:"4px"
+    borderRadius:"4px",
+    width:isOpen?"100%":"100%",
 
-  },
+  }),
 
   active: {
     backgroundColor: 'rgba(249,250,255)',

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from '../../styles/UserHome.module.css'
 import Card1 from '../Components/Card1'
 import Card2 from '../Components/Card2'
-import { useRouter } from 'next/router'
 
 const index = () => {
   const [user, setUser] = useState(null)
   const [bmi, setbmi] = useState(null)
   const [remark, setremark] = useState(null)
-  const router = useRouter()
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('user')))
@@ -35,9 +33,9 @@ const index = () => {
       {/* {user && (user.weight / (Math.pow(user.height / 100,2))).toFixed(2)} */}
 
 <div className={styles.cards}>
-      <Card1 heading="Height" value={user && user.height} unit="cms" color="Green"></Card1>
-      <Card1 heading="Weight" value={user && user.weight} unit="kgs" color="red"></Card1>
-      <Card1 heading="BMI" unit={<span>kg/m<sup>2</sup></span>} value={bmi && bmi} color="blue" remark = {remark && remark}></Card1>
+      <Card1 heading="Height" value={user && user.height} unit="cms"></Card1>
+      <Card1 heading="Weight" value={user && user.weight} unit="kgs"></Card1>
+      <Card1 heading="BMI" unit={<span>kg/m<sup>2</sup></span>} value={bmi && bmi} remark = {remark && remark}></Card1>
       </div>
 
 <Card2></Card2>
