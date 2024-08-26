@@ -20,7 +20,7 @@ const Sidebar = () => {
   useEffect(()=>{
     if(localStorage.getItem('user-role') === 'user'){
 
-      setList({'Home':["user",<FaHome/>],'Appointment':["user/Appointment",<FaCalendar></FaCalendar>],"Cs,okwkoe":["vla",<FaHistory />]})
+      setList({'Home':["user",<FaHome/>],'Appointment':["user/Appointment",<FaCalendar></FaCalendar>],"Past Prescriptions":["vla",<FaHistory />]})
     }
     else{
       setList({'Home':["doctor",<FaHome/>],'Appointment':["doctor/Appointment",<FaCalendar/>],"doctor":["vla",<FaUserDoctor />]})

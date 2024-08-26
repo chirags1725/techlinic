@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       const user = await collection.find({
         name: req.query.name.toLowerCase(),
         
-      }).toArray();
+      }).sort({ date: -1 }).toArray();
       user.reverse()
       res.status(200).json(user);
     } catch (err) {
@@ -54,9 +54,19 @@ export default async function handler(req, res) {
       await client.connect();
       const database = client.db("appointment");
       const collection = database.collection("appointment");
-      
-      const user = await collection.insertOne(req.body)
-      res.status(200).json({message:"Appointment Added successfully"});
+
+      const { date, time,email } = req.body;
+      const count = await collection.countDocuments({
+        date,
+        time,
+        email
+      });
+      if (count >= 10) {
+        res.status(400).json({ error: "Time slot is fully booked" });
+      } else {
+        const user = await collection.insertOne(req.body);
+        res.status(200).json({ message: "Appointment Added successfully" });
+      }
     } catch (err) {
       res.status(500).json({ error: "Internal server error occured" });
     } finally {

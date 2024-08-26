@@ -29,7 +29,7 @@ const Card3 = (props) => {
       })}</div>
 
 
-      <div style={{color:"gray",fontSize:".8em"}}>{props.time.map(e=>{return `${e}:00`}).join('-')}</div>
+      <div style={{color:"gray",fontSize:".8em"}}>{props.time && props.time.map(e=>{return `${e}:00`}).join('-')}</div>
       </div>
       <div >
         <div>&#8377; {fees}</div>

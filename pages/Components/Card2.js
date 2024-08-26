@@ -8,15 +8,23 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Loader from "./Loader";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/router";
 
 const Card2 = () => {
   const [appointments, setAppointments] = useState(null);
 
+  const router = useRouter();
+
+
   useEffect(() => {
-    fetch(`/api/appointmentsUser?name=chirag`)
+
+    if (router.isReady) {
+      const userName =(JSON.parse(localStorage.getItem('user')).name)
+
+    if (userName) {
+    fetch(`/api/appointmentsUser?name=${userName}`)
       .then((data) => data.json())
       .then((e) => {
-        console.log(e)
         setAppointments(e.map(i=>{
           return {
             _id:i._id,
@@ -29,7 +37,8 @@ const Card2 = () => {
           }
         }));
       });
-
+    }
+  }
   // let appointments1 = Array(50).fill(0).map((_, i) => {
   //   return {
   //     _id: `appointment-${i}`,
@@ -44,7 +53,7 @@ const Card2 = () => {
   // setAppointments(appointments1);
   // setAppointments([]);
 
-  }, []);
+  }, [router.isReady]);
 
   const handleCancel = (id) => {
     // console.log(`Cancel appointment ${id}`);
@@ -52,7 +61,6 @@ const Card2 = () => {
       method: "DELETE"
       }).then(e=>e.json())
       .then(e=>{
-        console.log(e)
         if(e.message){
           alert(e.message)
           setAppointments(appointments.filter((appointment) => appointment._id !== id));
