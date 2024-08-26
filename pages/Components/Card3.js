@@ -23,7 +23,7 @@ const Card3 = (props) => {
   return (
     <div style={{ background: "white", width: "100%", padding: "24px", display: "flex", justifyContent: "space-between", maxWidth: "1000px", marginBottom: "10px", borderRadius: "10px" }}>
       <div style={{ textAlign: "left" }}>
-        <div style={{ fontWeight: '600', fontSize: "1.4em" }}>Dr. {name.charAt(0).toUpperCase() + name.slice(1)}</div>
+        <div style={{ fontWeight: '600', fontSize: "1.4em" }}>{name ? `Dr. ${name.charAt(0).toUpperCase() + name.slice(1)}` : 'Unknown'}</div>
         <div style={{ fontWeight: '200', fontSize: ".8em" }}>{email}</div>
       </div>
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
