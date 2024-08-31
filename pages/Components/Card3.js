@@ -41,7 +41,7 @@ const Card3 = (props) => {
         <div>
           <div>&#8377; {fees}</div>
           <div style={{ padding: "10px", marginTop: "8px" }}>
-            <Link style={{ background: "rgba(25, 126, 249, 1)", padding: "10px", color: "white", textDecoration: "none", borderRadius: "4px" }} href={`/user/Appointment/Appointment?name=${name}&time=${timeS}&days=${dayS}&fees=${fees}&email=${email}`}>Schedule &#8594;</Link>
+            <Link style={{ background: "rgba(25, 126, 249, 1)", padding: "10px",color: "white", textDecoration: "none", borderRadius: "4px" }} href={`/user/Appointment/Appointment?name=${name}&time=${timeS}&days=${dayS}&fees=${fees}&email=${email}`}>Schedule &#8594;</Link>
           </div>
         </div>
       </div>

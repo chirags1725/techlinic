@@ -92,12 +92,12 @@ const CustomCalendar = () => {
     const response = fetch('/api/availableAppointment', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           date: formattedDate,
           time: time,
+          email: email
         })
       }).then(e=>e.json()).then(e=>{setSlots(e);console.log(e)})
   };

@@ -10,71 +10,38 @@ import Loader from "./Loader";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
-const Card2 = () => {
+const Card4 = ({head,noapp,Appointments}) => {
   const [appointments, setAppointments] = useState(null);
+  const [user, setUser] = useState(null)
+
 
   const router = useRouter();
 
 
   useEffect(() => {
-
-    if (router.isReady) {
-      const userName =(JSON.parse(localStorage.getItem('user')).name)
-
-    if (userName) {
-      const today = new Date();
-const dd = String(today.getDate()).padStart(2, '0');
-const mm = String(today.getMonth() + 1).padStart(2, '0');
-const yyyy = today.getFullYear();
-
-const todayDate = parseInt(`${yyyy}${mm}${dd}`);
-    fetch(`/api/appointmentsUser?name=${userName}`)
-      .then((data) => data.json())
-      .then((e) => {
-        setAppointments(e.filter(i=>parseInt(i.date.split("-").reverse().join('')) >= todayDate).map(i=>{
-          return {
-            _id:i._id,
-            doctor:i.doctor,
-            email: i.email,
-            date:i.date,
-            time:i.time,
-            fees:i.fees,
-
-          }
-        }));
-      });
+    if(Appointments != null){
+        setAppointments(Appointments.map(appointment => {
+            const { email,doctor, ...rest } = appointment;
+            return rest;
+          }));
     }
-  }
-  // let appointments1 = Array(50).fill(0).map((_, i) => {
-  //   return {
-  //     _id: `appointment-${i}`,
-  //     doctor: `Doctor ${i}`,
-  //     Email: `doctor${i}@email.com`,
-  //     date: `2023-03-0${i}`,
-  //     time: `10:0${i} AM`,
-  //     fees: i * 10
-  //   }
-  // });
+        
+  }, [Appointments]);
+
+  useEffect(() => {
+    
+    setUser(JSON.parse(localStorage.getItem('user')))
+    console.log(JSON.parse(localStorage.getItem('user')))
+
   
-  // setAppointments(appointments1);
-  // setAppointments([]);
+  }, [])
+  
+    
 
-  }, [router.isReady]);
 
-  const handleCancel = (id) => {
+  const handlePrescribe = (name,date) => {
     // console.log(`Cancel appointment ${id}`);
-    fetch(`/api/appointmentsUser?id=${id}`, {
-      method: "DELETE"
-      }).then(e=>e.json())
-      .then(e=>{
-        if(e.message){
-          alert(e.message)
-          setAppointments(appointments.filter((appointment) => appointment._id !== id));
-        }
-        if(e.error){
-          alert(e.error)
-        }
-      })
+    router.push(`../doctor/prescribe?doctor=${user.name}&name=${name}&date=${date}`)
   };
 
   return (
@@ -87,7 +54,7 @@ const todayDate = parseInt(`${yyyy}${mm}${dd}`);
       }}
     >
 
-      <h4>Appointments</h4>
+      <h4>{head}</h4>
       {appointments ? (appointments.length > 0 ?
       <div>
         <TableContainer
@@ -112,7 +79,8 @@ const todayDate = parseInt(`${yyyy}${mm}${dd}`);
                   {key.charAt(0).toUpperCase() + key.slice(1)}
                 </TableCell>
               ))}
-                                <TableCell sx={{ color: "white", fontSize: "1em" }}>Cancel</TableCell>
+              <TableCell sx={{ color: "white", fontSize: "1em" }}>Prescribe</TableCell>
+                    
 
             </TableRow>
           </TableHead>
@@ -131,19 +99,20 @@ const todayDate = parseInt(`${yyyy}${mm}${dd}`);
                   </TableCell>
                 ))}
                 <TableCell
-                style={{
-                  background: index % 2 === 0 && "rgba(34, 53, 239, 0.05)",
-                  whiteSpace: "nowrap", // Add this property
-                }}>
-                      <Button
+                    style={{
+                      background: index % 2 === 0 && "rgba(34, 53, 239, 0.05)",
+                      whiteSpace: "nowrap", // Add this property
+                    }}
+                  >
+                    <Button
                         variant="contained"
-                        color="error"
-                        style={{padding:"8px 10px",fontSize:".75em"}}
-                        onClick={() => handleCancel(appointment._id)}
+                        style={{padding:"8px 10px",fontSize:".75em",background:"#ef934960",color:"black",fontWeight:"600"}}
+                        onClick={() => handlePrescribe(appointment.name,appointment.date)}
                       >
-                        Cancel
+                        Prescribe
                       </Button>
-                    </TableCell>
+                  </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
@@ -151,9 +120,9 @@ const todayDate = parseInt(`${yyyy}${mm}${dd}`);
       </TableContainer>
       <div style={{marginTop:"20px",textAlign:"center",color:"gray",fontSize:".9em"}}>{appointments.length} Appointments Scheduled</div>
       </div>
-      :<div style={{marginTop:"36px",marginBottom:"20px",alignItems:"center",textAlign:"center",color:"gray"}}>No Appointments Scheduled</div>):<div style={{position:"relative",marginTop:"60px",marginBottom:"100px"}}><Loader style={{position:"relative"}}/></div>}
+      :<div style={{marginTop:"36px",marginBottom:"20px",alignItems:"center",textAlign:"center",color:"gray"}}>{noapp}</div>):<div style={{position:"relative",marginTop:"60px",marginBottom:"100px"}}><Loader style={{position:"relative"}}/></div>}
     </div>
   );
 };
 
-export default Card2;
+export default Card4;

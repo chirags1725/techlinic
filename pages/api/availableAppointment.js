@@ -20,15 +20,17 @@ export default async function handler(req, res) {
 
 
         const date=req.body.date;
+        const email=req.body.email;
         let obj = {}
         for (const [key,value] of Object.entries(req.body.time[0])) {
             var time = value;
-            const slots = await collection.countDocuments({date,time})
+            const slots = await collection.countDocuments({email,date,time})
             console.log(date,time)
-                obj[time] = 10-slots;
+            obj[time] = 10-slots;
           }
           res.status(200).json(obj)
       }catch (err) {
+        console.log(err)
         res.status(500).json({ error: "Internal server error occured" });
       } finally {
         await client.close();
