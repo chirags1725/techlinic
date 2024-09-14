@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Loader from './Loader';
 
 const Card5 = (props) => {
-    const [diagnosis, setDiagnosis] = useState(''); 
+    const [diagnosis, setDiagnosis] = useState('');
+    const [error, setError] = useState(null)
+    const [message, setMessage] = useState(null)
+   
 
   const [columns, setColumns] = useState([
     { name: 'Medicine', value: '', col: "Medicine" },
@@ -54,6 +58,7 @@ const Card5 = (props) => {
         diagnosis:diagnosis
 
     }
+    setIsSButtonEnabled(true)
     // make fetch post request
     fetch('/api/prescription', {
         method: 'POST',
@@ -61,6 +66,25 @@ const Card5 = (props) => {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
+            }).then(e=>e.json()).then(e=>{
+              setDiagnosis('')
+              setRows([
+                { medicine: '', timesperday: '', days: '' },
+              ])
+
+              if(e.message){
+                setMessage(e.message)
+                setTimeout(() => {
+                  setMessage('')
+                  // router.push('/')
+                }, 2000);
+                }
+                else{
+                  setError(e.error)
+                  setTimeout(() => {
+                    setError('')
+                  }, 2000);
+                }
             })
   }
 
@@ -73,8 +97,12 @@ const Card5 = (props) => {
       marginBottom: "10px", 
       borderRadius: "10px", 
       marginTop: "40px", 
-      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" 
+      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+      // position:"relative"
     }}>
+ {error && <div style={{marginBottom:"40px",marginTop:"-20px",background:"red",color:'white',padding:"4px 10px", textTransform:"capitalize"}}>{error}</div>}
+          {message && <div style={{marginBottom:"40px",marginTop:"-20px",background:"lightgreen",color:'black',padding:"4px 10px", textTransform:"capitalize"}}>{message}</div>}
+    
       <h4 style={{ marginBottom: "16px" }}>Diagnosis</h4>
       <input 
         type='text' 

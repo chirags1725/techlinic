@@ -99,7 +99,7 @@ const CustomCalendar = () => {
           time: time,
           email: email
         })
-      }).then(e=>e.json()).then(e=>{setSlots(e);console.log(e)})
+      }).then(e=>e.json()).then(e=>{setSlots(e)})
   };
 
   const getDayOfWeek = (date) => {

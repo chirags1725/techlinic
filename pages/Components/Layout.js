@@ -31,6 +31,7 @@ const styles = {
   mainContent: {
     display: 'flex',
     flex: 1,
+
   },
   content: {
     flex: 1,
@@ -38,6 +39,7 @@ const styles = {
     background: 'rgba(250,250,251)',
     margin:"12px",
     borderRadius:"10px",
+
     padding:'24px 20px'
   },
 };

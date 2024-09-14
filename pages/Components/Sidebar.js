@@ -6,6 +6,7 @@ import { FaHistory, FaHome } from "react-icons/fa";
 import { FaCalendar } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 import { PiNotebook, PiNotebookFill } from "react-icons/pi";
+import { FiLogOut } from "react-icons/fi";
 
 
 const Sidebar = () => {
@@ -20,14 +21,20 @@ const Sidebar = () => {
   useEffect(()=>{
     if(localStorage.getItem('user-role') === 'user'){
 
-      setList({'Home':["user",<FaHome/>],'Appointment':["user/Appointment",<FaCalendar></FaCalendar>],"Past Prescriptions":["vla",<FaHistory />]})
+      setList({'Home':["user",<FaHome/>],'Appointment':["user/Appointment",<FaCalendar></FaCalendar>],"Past Prescriptions":["user/prescriptions",<FaHistory />]})
     }
     else{
-      setList({'Home':["doctor",<FaHome/>],'Appointment':["doctor/Appointment",<FaCalendar/>],"doctor":["vla",<FaUserDoctor />]})
+      setList({'Home':["doctor",<FaHome/>],'Appointment':["doctor/Appointment",<FaCalendar/>],"Past prescriptions":["doctor/prescriptions",<FaHistory />]})
 
 
     }
   },[])
+
+  const logout = () =>{
+    localStorage.removeItem('user')
+    localStorage.removeItem('user-role')
+    router.push('/login')
+  }
 
   return (
     <aside style={styles.sidebar(isOpen)}>
@@ -48,9 +55,15 @@ const Sidebar = () => {
           </Link>
         </li>
           )
+          
         })
       }
       </ul>
+      <div onClick={logout} style={{cursor:'pointer',width:"100%",left:"0px",paddingLeft:"20px", display:"flex",alignItems:"end",position:"absolute",bottom:"40px",fontSize:"1.2em"}}>
+      <FiLogOut/>
+      {isOpen && <div style={{fontSize:".8em",marginLeft:"10px"}}>Logout</div>}
+      </div>
+
     </aside>
   );
 };
@@ -61,7 +74,7 @@ const styles = {
     width: isOpen ? '250px' : '80px',
     background: '#fff',
     padding: '20px',
-    height: '100vh',
+    height: '100svh',
     position: 'sticky',
     top: '0px',
     left: '0px',

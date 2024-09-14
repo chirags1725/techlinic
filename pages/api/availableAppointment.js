@@ -36,5 +36,8 @@ export default async function handler(req, res) {
         await client.close();
       }
     }
+    else{
+      res.status(401).json({error:"Invalid method"})
+    }
     
 }
