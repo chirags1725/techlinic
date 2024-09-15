@@ -39,7 +39,15 @@ if (req.body.date) {
         const dateB = new Date(b.date.split('-').reverse().join('-'));
         return dateB - dateA;
       });
-      res.status(200).json(user);
+
+      // const res = {...user};
+      // delete res.fees
+      const resp = user.map((obj) => {
+        delete obj.fees;
+        return obj;
+      });
+      console.log(resp)
+      res.status(200).json(resp);
     } catch (err) {
       res.status(500).json({ error: "Internal server error occured" });
     } finally {

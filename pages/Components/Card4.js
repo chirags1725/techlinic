@@ -19,7 +19,7 @@ const Card4 = ({head,noapp,Appointments}) => {
 
 
   useEffect(() => {
-    if(Appointments != null){
+    if(Appointments !== null){
         setAppointments(Appointments.map(appointment => {
             const { email,doctor, ...rest } = appointment;
             return rest;
@@ -85,7 +85,7 @@ const Card4 = ({head,noapp,Appointments}) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {appointments.map((appointment, index) => (
+            {appointments && appointments.map((appointment, index) => (
               <TableRow key={index}>
                 {Object.entries(appointment).filter(([key]) => key !== '_id').map(([key, value]) => (
                   <TableCell
