@@ -1,40 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
+
+Link to deployed app [Link](https://techlinic.vercel.app).
+# Techlinic
+
+Techlinic is a modern clinic management application designed to streamline and enhance the patient care experience. With features like appointment scheduling, prescription management, and easy access to patient records, Techlinic aims to simplify the workflow for both healthcare providers and patients.
+
+## Features
+
+- **Appointment Scheduling**: Easily schedule and manage patient appointments.
+- **Prescription Management**: Create, manage, and view prescriptions digitally.
+- **Patient Records**: View and manage patient information securely.
+- **User-Friendly Interface**: Intuitive design for both staff and patients.
+
+## Tech Stack
+
+- **Frontend**: Next.js
+- **Backend**: Node.js, Express
+- **Styling**: Material UI
+- **Database**: MongoDB
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (v14 or higher)
+- npm or yarn
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Installation
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/chirags1725/techlinic.git
+2. Navigate to project folder
+    ```bash
+    cd techlinic
+3. Install the dependencies:
+    ```bash
+    npm install
+4. Set up environment variables :
+Create a `.env.local` file in the root of the project and define the following environment variables:
+    ```bash 
+    MONGO_URI=mongodb+srv://toonshub1725:clinicapp@cluster0.y5ksi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+4. To start the development server, run:
+    ```bash
+    npm run dev
+5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to see the app in action.
