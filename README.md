@@ -1,7 +1,7 @@
 <!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
 
-Link to deployed app [Link](https://techlinic.vercel.app).
-# Techlinic
+Link to deployed app [https://techlinic.vercel.app](https://techlinic.vercel.app).
+# Overview
 
 Techlinic is a modern clinic management application designed to streamline and enhance the patient care experience. With features like appointment scheduling, prescription management, and easy access to patient records, Techlinic aims to simplify the workflow for both healthcare providers and patients.
 
