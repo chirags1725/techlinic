@@ -1,7 +1,6 @@
 <!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
 
-Link to deployed app [https://techlinic.vercel.app](https://techlinic.vercel.app).
-
+Link to deployed app [https://techlinic.vercel.app](https://techlinic.vercel.app).\n
 For patient's Dashboard, visit [Link](https://techlinic.vercel.app)
 
 For doctor's Dashboard, visit [Link](https://techlinic.vercel.app/login/doctor)
